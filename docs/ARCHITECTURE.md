@@ -37,7 +37,9 @@ O frontend apenas reproduzirá os eventos retornados pelo Python. Nenhuma segund
 
 ## Design system
 
-Tokens CSS para fundo grafite, superfícies, bordas, texto secundário, azul e violeta. Fontes nativas para execução sem downloads. Componentes reutilizáveis: painel, botão, aviso, badge, título, navegação e estados de formulário. Ícones SVG locais. Layout em grid/flex com menu recolhido em telas pequenas, foco visível, teclado nos nós, link para pular ao conteúdo e suporte a movimento reduzido.
+Tokens CSS para fundo grafite, superfícies, bordas, texto secundário e violeta. Fontes nativas para execução sem downloads. Componentes reutilizáveis: painel, botão, título, navegação e estados de formulário. Ícones SVG locais. A revisão 0.1.1 abre diretamente em Matrizes e usa três abas visíveis em todas as larguras: Matrizes, Grafos e Guia. Não há sidebar nem menu recolhido. A antiga rota `#overview` redireciona para Matrizes; `#roadmap`, para o Guia. O planejamento completo permanece na documentação.
+
+O layout usa grid/flex, foco visível, teclado nos nós e link para pular ao conteúdo. Transições em botões e campos e uma animação breve de entrada das telas são desativadas por `prefers-reduced-motion`. Explicações detalhadas ficam em elementos `details`/`summary` acessíveis por teclado.
 
 O estado de servidor é verificado em `/api/health` na inicialização e na nova tentativa de carregamento; não é monitoramento contínuo. O rascunho da matriz é local ao navegador/origem e não sincroniza entre computadores. A importação/exportação JSON completa é trabalho da Fase 4.
 

@@ -9,7 +9,7 @@
 Um laboratório interativo de Matemática Computacional Aplicada.<br>
 Matrizes, grafos e os caminhos entre conceitos e prática.
 
-![Versão](https://img.shields.io/badge/vers%C3%A3o-0.1.0--alpha-8b7cf8?style=flat-square)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-0.1.1--alpha-8b7cf8?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.1.2-252a3b?style=flat-square&logo=flask&logoColor=white)
 ![Status](https://img.shields.io/badge/entrega-fase%201%20de%205-7386ff?style=flat-square)
@@ -18,7 +18,7 @@ Matrizes, grafos e os caminhos entre conceitos e prática.
 
 </div>
 
-![Visão geral do MatrixLab: interface escura com navegação lateral e módulos de matrizes e grafos](docs/images/desktop.png)
+![MatrixLab: editor de matrizes minimalista com três abas no topo](docs/images/desktop.png)
 
 ## Sobre o projeto
 
@@ -26,13 +26,17 @@ O MatrixLab é um projeto acadêmico da disciplina de **Matemática Computaciona
 
 A aplicação combina **Python e Flask** no backend com **HTML, CSS, JavaScript e SVG** no frontend. Os algoritmos matemáticos serão implementados manualmente em Python, sem NumPy, NetworkX ou bibliotecas que resolvam os cálculos.
 
-> **Primeira versão · v0.1.0-alpha**
+> **Versão atual · v0.1.1-alpha**
 >
 > Esta entrega corresponde à **Fase 1: fundação, design system e interface funcional**. O editor inicial de matrizes e a visualização do grafo já funcionam. Operações matriciais, Dijkstra, edição sincronizada do grafo e importação/exportação JSON estão planejados para as próximas fases.
 
+### Uma interface mais simples
+
+A versão 0.1.1 abre diretamente no editor de matrizes. São apenas três abas — **Matrizes, Grafos e Guia** — visíveis também no celular. A interface usa transições discretas, cores suaves e explicações que podem ser expandidas no guia. As animações respeitam a preferência por movimento reduzido.
+
 ## O que já funciona
 
-- **Interface responsiva:** tema escuro, sidebar, menu móvel, estados de foco e navegação por teclado.
+- **Interface responsiva:** tema escuro, três abas no topo, animações suaves, estados de foco e navegação por teclado.
 - **Editor inicial de matrizes:** crie uma matriz A de 1×1 a 8×8, edite valores, altere dimensões e restaure o exemplo.
 - **Rascunho local:** a matriz é salva no navegador e recuperada ao recarregar a página.
 - **Grafo de demonstração:** explore quatro nós e cinco arestas em SVG; selecione um nó para consultar suas conexões.
