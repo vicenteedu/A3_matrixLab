@@ -1,0 +1,56 @@
+# Python: ambientes e arquivos gerados
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testes, cobertura e ferramentas
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Empacotamento
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+*.whl
+
+# Configuração local, segredos e dados de execução
+.env
+.env.*
+!.env.example
+!.env.*.example
+.flaskenv
+instance/
+*.log
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite3-journal
+
+# Editores e sistema operacional
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Arquivos de trabalho e pacotes de entrega locais
+/work/
+/outputs/
+*.zip
