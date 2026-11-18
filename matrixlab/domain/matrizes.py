@@ -18,6 +18,7 @@ def somar(a, b):
     colunas = len(a[0])
     resultado = []
     passos = []
+    etapas = []
 
     passos.append(f"Somar duas matrizes {linhas}x{colunas} elemento a elemento.")
 
@@ -27,11 +28,14 @@ def somar(a, b):
             soma = a[i][j] + b[i][j]
             
             passos.append(f"a[{i}][{j}] + b[{i}][{j}] = {a[i][j]} + {b[i][j]} = {soma}")
+            etapas.append({"linha": i, "coluna": j, "a": a[i][j], "b": b[i][j], "valor": soma,
+                           "expressao": f"{a[i][j]} + ({b[i][j]}) = {soma}",
+                           "explicacao": f"Some os elementos da linha {i + 1}, coluna {j + 1}, de A e B para preencher C."})
             nova_linha.append(soma)
 
         resultado.append(nova_linha)
     passos.append("Matriz resultante construida com sucesso.")
-    return {"resultado": resultado, "passos": passos}
+    return {"resultado": resultado, "passos": passos, "visualizacao": {"versao": 1, "tipo": "somar", "a": a, "b": b, "etapas": etapas}}
 
 
 def subtrair(a, b):

@@ -92,7 +92,10 @@ def normalize_result(raw, expected_shape):
             raise InvalidResult(str(error)) from error
         if actual != expected_shape:
             raise InvalidResult(f"O resultado deve ter dimensão {expected_shape[0]} × {expected_shape[1]}.")
-    return {"resultado": result, "passos": steps}
+    normalized = {"resultado": result, "passos": steps}
+    if isinstance(raw, dict) and "visualizacao" in raw:
+        normalized["visualizacao"] = raw["visualizacao"]
+    return normalized
 
 
 def calculate(data):
