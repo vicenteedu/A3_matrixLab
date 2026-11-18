@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const source = readFileSync('matrixlab/static/js/playback.js','utf8');
+const {Playback} = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+let tick; let cleared=0; let state;
+const clock={setInterval(fn,delay){tick=fn; this.delay=delay; return 1;},clearInterval(){cleared++;}};
+const p=new Playback(2,(index,playing)=>state={index,playing},clock);
+p.next(); assert.equal(state.index,0);
+p.next(); p.next(); assert.equal(state.index,1);
+p.previous(); assert.equal(state.index,0);
+p.restart(); assert.equal(state.index,-1);
+p.play(); assert.equal(state.playing,true);
+p.setSpeed(2); assert.equal(clock.delay,700);
+tick(); assert.equal(state.index,0);
+p.pause(); assert.equal(state.playing,false); assert.ok(cleared>0);
+p.play(); tick(); assert.equal(state.index,1); assert.equal(state.playing,false);
+p.play(); assert.equal(state.index,-1); p.pause();
+console.log('Playback: navigation, boundaries, restart, timing, pause and completion passed.');

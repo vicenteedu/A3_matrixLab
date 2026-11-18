@@ -1,3 +1,5 @@
+import {mountResolution} from './resolution-view.js';
+let disposeResolution = () => {};
 /** Coleta os dados e apresenta respostas; todos os cálculos ficam no Python. */
 const storageKey = 'matrixlab.matrices.v2';
 const legacyKey = 'matrixlab.matrix.v1';
@@ -36,6 +38,7 @@ function save() {
 }
 
 function setResult(status, message, error = false) {
+  disposeResolution(); disposeResolution = () => {};
   element('result-state').textContent = status;
   element('result-message').textContent = message;
   element('matrix-result').classList.toggle('has-error', error);
@@ -164,6 +167,7 @@ function showResult(response) {
   }
   response.passos.forEach(step => { const li = document.createElement('li'); li.textContent = step; element('steps-list').append(li); });
   element('result-steps').hidden = response.passos.length === 0;
+  disposeResolution = mountResolution(response);
 }
 
 async function calculate() {
