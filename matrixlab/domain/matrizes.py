@@ -13,8 +13,25 @@ Guia e exemplos de uso: docs/IMPLEMENTAR_MATRIZES.md.
 
 
 def somar(a, b):
-    """TODO: somar matrizes de mesmas dimensões. Retornar matriz desse tamanho."""
-    raise NotImplementedError("A soma ainda não foi implementada.")
+    """Somar matrizes de mesmas dimensões. Retornar matriz desse tamanho."""
+    linhas = len(a)
+    colunas = len(a[0])
+    resultado = []
+    passos = []
+
+    passos.append(f"Somar duas matrizes {linhas}x{colunas} elemento a elemento.")
+
+    for i in range(linhas):
+        nova_linha = []
+        for j in range(colunas):
+            soma = a[i][j] + b[i][j]
+            
+            passos.append(f"a[{i}][{j}] + b[{i}][{j}] = {a[i][j]} + {b[i][j]} = {soma}")
+            nova_linha.append(soma)
+
+        resultado.append(nova_linha)
+    passos.append("Matriz resultante construida com sucesso.")
+    return {"resultado": resultado, "passos": passos}
 
 
 def subtrair(a, b):
