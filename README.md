@@ -9,7 +9,7 @@
 Um laboratório interativo de Matemática Computacional Aplicada.<br>
 Matrizes, grafos e os caminhos entre conceitos e prática.
 
-![Versão](https://img.shields.io/badge/vers%C3%A3o-0.1.1--alpha-8b7cf8?style=flat-square)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-0.1.2--alpha-8b7cf8?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.1.2-252a3b?style=flat-square&logo=flask&logoColor=white)
 ![Status](https://img.shields.io/badge/entrega-fase%201%20de%205-7386ff?style=flat-square)
@@ -26,9 +26,11 @@ O MatrixLab é um projeto acadêmico da disciplina de **Matemática Computaciona
 
 A aplicação combina **Python e Flask** no backend com **HTML, CSS, JavaScript e SVG** no frontend. Os algoritmos matemáticos serão implementados manualmente em Python, sem NumPy, NetworkX ou bibliotecas que resolvam os cálculos.
 
-> **Versão atual · v0.1.1-alpha**
+> **Versão atual · v0.1.2-alpha — estrutura pronta para implementar os algoritmos**
 >
-> Esta entrega corresponde à **Fase 1: fundação, design system e interface funcional**. O editor inicial de matrizes e a visualização do grafo já funcionam. Operações matriciais, Dijkstra, edição sincronizada do grafo e importação/exportação JSON estão planejados para as próximas fases.
+> A fundação da Fase 1 está pronta e a integração das matrizes da Fase 2 já está preparada: editores A/B, sete operações, API validada, resultados e passos. **Os algoritmos ficam a cargo dos estudantes em `matrixlab/domain/matrizes.py`.** As funções pendentes mostram “Em desenvolvimento”. Dijkstra, edição sincronizada do grafo e importação/exportação JSON continuam pendentes.
+
+**Vai programar as resoluções? Comece pelo [guia de implementação das matrizes](docs/IMPLEMENTAR_MATRIZES.md).** Ele explica os argumentos, os retornos e os testes. Basta preencher as sete funções no arquivo indicado; a ligação com a tela já existe.
 
 ### Uma interface mais simples
 
@@ -37,8 +39,10 @@ A versão 0.1.1 abre diretamente no editor de matrizes. São apenas três abas �
 ## O que já funciona
 
 - **Interface responsiva:** tema escuro, três abas no topo, animações suaves, estados de foco e navegação por teclado.
-- **Editor inicial de matrizes:** crie uma matriz A de 1×1 a 8×8, edite valores, altere dimensões e restaure o exemplo.
-- **Rascunho local:** a matriz é salva no navegador e recuperada ao recarregar a página.
+- **Editores A e B:** matrizes de 1×1 a 8×8, dimensões independentes, valores editáveis e restauração dos exemplos. B aparece apenas nas operações que precisam dela.
+- **Operações conectadas:** adição, subtração, multiplicação, transposta, determinante, identidade e nula encaminham os dados às respectivas funções Python, ainda pendentes de resolução.
+- **Resultado e passos:** apresentação de matriz ou número, resolução opcional, carregamento, mensagens de erro e cancelamento de respostas antigas após uma edição.
+- **Rascunho local:** A, B e a operação são salvas no navegador. O rascunho antigo da matriz A é preservado na migração.
 - **Grafo de demonstração:** explore quatro nós e cinco arestas em SVG; selecione um nó para consultar suas conexões.
 - **Matriz de adjacência:** representação simétrica, somente leitura, gerada a partir dos mesmos dados do grafo.
 - **Guia introdutório:** conceitos de matrizes, grafos, condições das operações e funcionamento de Dijkstra.
@@ -146,11 +150,11 @@ Execute os testes a partir da raiz do repositório:
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-Os **9 testes** verificam página e assets locais, saúde do servidor, contrato JSON, erros 404, pesos e simetria do exemplo, custo da rota de referência, isolamento dos dados e independência entre coordenadas e pesos.
+São **31 testes: 21 aprovados e 10 pulados enquanto os algoritmos estão pendentes**. Nove verificam a base e o grafo; doze verificam a API matricial, validações, encaminhamento e tratamento de retornos; dez são casos de aceitação das resoluções. Estes últimos deixam de ser pulados quando a função correspondente é implementada.
 
 A interface também foi verificada em Chrome com automação de navegador: navegação, persistência, validações do editor, teclado, recuperação de falha da API e cinco larguras de tela. Consulte o [registro de validação](docs/VALIDATION.md) para os cenários e limites dessa verificação.
 
-Os testes de operações matemáticas, Dijkstra e edição sincronizada serão acrescentados junto às respectivas implementações.
+Os testes de transporte usam funções simuladas; eles não comprovam os algoritmos. Os casos reais em `tests/test_matrizes.py` devem passar após a implementação de vocês. Dijkstra e edição sincronizada ainda terão seus próprios testes.
 
 ## Organização do código
 
@@ -163,16 +167,21 @@ A3_matrixLab/
 ├── README.md
 ├── matrixlab/
 │   ├── __init__.py             # Application factory e rotas de página
-│   ├── api/__init__.py         # Endpoints REST
+│   ├── api/
+│   │   ├── __init__.py        # Registro dos endpoints REST
+│   │   └── matrices.py        # Recebe JSON e devolve resultado/erro
 │   ├── domain/
-│   │   └── examples.py         # Exemplo canônico, independente de Flask
+│   │   ├── examples.py         # Grafo de demonstração
+│   │   ├── matrix_service.py   # Validação e ligação com as funções
+│   │   └── matrizes.py         # IMPLEMENTEM AS RESOLUÇÕES AQUI
 │   ├── templates/             # Páginas HTML
 │   └── static/
 │       ├── css/app.css         # Design system e responsividade
 │       ├── js/                 # Navegação, editor e visualização SVG
 │       └── favicon.svg
-├── tests/test_app.py           # Testes da fundação e do exemplo
+├── tests/                     # Base, API e aceitação das resoluções
 └── docs/
+    ├── IMPLEMENTAR_MATRIZES.md # Guia para os estudantes
     ├── ARCHITECTURE.md         # Decisões, contratos e plano técnico
     ├── VALIDATION.md           # Evidências e checklist de validação
     └── images/                # Capturas usadas neste README
@@ -180,12 +189,13 @@ A3_matrixLab/
 
 **Separação de responsabilidades:** Flask cuida do HTTP; o domínio Python concentrará os cálculos; JavaScript apresenta os dados e controla a interação. O histórico de Dijkstra será produzido exclusivamente pelo Python.
 
-### API da primeira versão
+### API disponível
 
 - `GET /api/health` — informa aplicação, estado e fase atual.
 - `GET /api/graph/example` — retorna nós, posições, matriz de adjacência, origem, destino e referência do enunciado.
+- `POST /api/matrices/calculate` — recebe `operacao` e seus argumentos, valida e chama `matrizes.py`. Devolve `resultado` e `passos`, ou erro explícito. Funções pendentes retornam HTTP 501.
 
-No contrato JSON, `null` representa ausência de aresta e `0` é reservado à diagonal. A ordem dos nós define as linhas e colunas da matriz. Não há endpoints de cálculo nesta versão.
+No contrato JSON do grafo, `null` representa ausência de aresta e `0` é reservado à diagonal. A ordem dos nós define as linhas e colunas da matriz. O contrato matricial está detalhado no guia de implementação.
 
 ## Próximas fases
 

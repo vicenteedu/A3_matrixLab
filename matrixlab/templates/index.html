@@ -23,8 +23,11 @@
 
   <main id="main" tabindex="-1">
     <section id="view-matrices" class="view" aria-labelledby="matrices-title">
-      <div class="page-heading"><p class="eyebrow">SEU LABORATÓRIO DE MATEMÁTICA</p><h1 id="matrices-title">Matrizes<span>.</span></h1><p>Escolha o tamanho e edite os valores. Simples assim.</p></div>
-      <article class="panel matrix-panel" aria-label="Editor de matriz">
+      <div class="page-heading"><p class="eyebrow">SEU LABORATÓRIO DE MATEMÁTICA</p><h1 id="matrices-title">Matrizes<span>.</span></h1><p>Escolha a operação, preencha os valores e calcule.</p></div>
+      <div class="operation-toolbar"><label for="matrix-operation">Operação<select id="matrix-operation"><option value="somar">Adição · A + B</option><option value="subtrair">Subtração · A − B</option><option value="multiplicar">Multiplicação · A × B</option><option value="transpor">Transposta · Aᵀ</option><option value="determinante">Determinante · det(A)</option><option value="identidade">Matriz identidade</option><option value="nula">Matriz nula</option></select></label><p id="operation-hint">A e B precisam ter as mesmas dimensões.</p></div>
+      <div id="generator-settings" class="panel generator-settings" hidden><label id="generator-rows-label">Ordem<input id="generator-rows" type="number" min="1" max="8" value="3" required></label><label id="generator-columns-label">Colunas<input id="generator-columns" type="number" min="1" max="8" value="3" required></label><p>Escolha o tamanho da matriz que será criada.</p></div>
+      <div id="matrix-editors" class="matrix-editors binary">
+      <article id="matrix-a" class="panel matrix-panel" aria-label="Editor da matriz A">
         <div class="editor-toolbar">
           <form id="dimension-form" class="dimension-form">
             <label>Linhas<input id="rows" type="number" min="1" max="8" value="3" required></label>
@@ -37,8 +40,10 @@
         <div class="matrix-stage"><span class="matrix-label">A</span><div class="matrix-editor-wrap"><div id="matrix-editor" class="matrix-editor" role="group" aria-label="Elementos da matriz A"></div></div></div>
         <div class="editor-footer"><span id="matrix-shape" class="mono">A · 3 × 3</span><p id="matrix-feedback" class="feedback" role="status">Clique em uma célula para editar.</p></div>
       </article>
+      </div>
       <div class="below-panel"><p>Até 8 × 8. Seu rascunho fica salvo neste navegador.</p><a class="text-link" href="#guide">Como funciona? <span aria-hidden="true">↗</span></a></div>
-      <p class="phase-hint"><span class="small-dot"></span>Editor disponível. As operações de cálculo chegam em breve.</p>
+      <div class="calculate-bar"><span id="calculation-summary">A + B</span><button id="calculate-matrix" class="button primary" type="button">Calcular <span aria-hidden="true">↗</span></button></div>
+      <section id="matrix-result" class="panel result-panel" aria-labelledby="result-title" aria-busy="false"><div class="panel-heading"><h2 id="result-title">Resultado</h2><span id="result-state" class="caption">Aguardando</span></div><p id="result-message" role="status">O resultado aparecerá aqui depois do cálculo.</p><div id="result-values" class="result-values"></div><details id="result-steps" hidden><summary>Ver resolução passo a passo</summary><ol id="steps-list"></ol></details></section>
     </section>
 
     <section id="view-graphs" class="view" aria-labelledby="graphs-title" hidden>

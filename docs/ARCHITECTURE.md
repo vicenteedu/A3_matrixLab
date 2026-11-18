@@ -10,7 +10,11 @@ O navegador envia JSON para a camada HTTP em `matrixlab/api/`. A API deve valida
 
 O padrão application factory permite instanciar aplicações isoladas para testes. A base segue a [documentação oficial do Flask](https://flask.palletsprojects.com/en/stable/patterns/appfactories/).
 
-Na Fase 2, acrescentar `domain/matrices.py`, `api/matrices.py` e `tests/test_matrices.py`. Na Fase 3, acrescentar `domain/graph.py`, `domain/dijkstra.py`, `api/graphs.py` e testes correspondentes. Separar arquivos quando a responsabilidade concreta surgir, evitando camadas vazias.
+Na preparação da Fase 2, `api/matrices.py` recebe JSON, `domain/matrix_service.py` valida e encaminha, e `domain/matrizes.py` contém sete funções intencionalmente pendentes para os estudantes implementarem. Os testes de transporte estão em `tests/test_matrix_api.py`; os casos reais, inicialmente pulados, em `tests/test_matrizes.py`. Na Fase 3, acrescentar `domain/graph.py`, `domain/dijkstra.py`, `api/graphs.py` e testes correspondentes.
+
+`POST /api/matrices/calculate` recebe `operacao` e `a`/`b`, ou `ordem`, ou `linhas`/`colunas`. O serviço verifica dimensões compatíveis e entradas finitas, rejeitando booleanos, strings, linhas irregulares e tamanhos fora de 1 a 8. Valida também tipo e dimensão do retorno, mas não calcula nem prova sua correção matemática. As funções podem devolver matriz/número diretamente ou `{resultado, passos}`. O HTTP distingue entrada inválida (400), formato de mídia (415), corpo excessivo (413), função pendente (501) e falha de implementação (500).
+
+O frontend guarda A/B e preferências na chave `matrixlab.matrices.v2`, recuperando o antigo `matrixlab.matrix.v1` como A quando necessário. Ao editar valores/operação/dimensões, limpa resultados e cancela requisições pendentes. Nenhum algoritmo matricial é duplicado no JavaScript. O histórico é exibido somente se retornado pela função Python.
 
 ## Modelo do grafo
 
@@ -29,7 +33,7 @@ Na Fase 4, um único store JavaScript guardará esse modelo. Ações semânticas
 
 ## Cálculos e passos futuros
 
-Operações matriciais usarão listas e laços em Python. Soma e subtração exigem dimensões iguais; multiplicação exige compatibilidade interna. Determinantes estarão limitados a 2×2 e 3×3. A geração de identidade exigirá ordem quadrada; a nula aceitará linhas e colunas. Erros terão mensagem legível e código estável. A dimensão inicial máxima de 8 mantém a UI e os históricos utilizáveis; limites do servidor deverão ser definidos e testados ao criar os endpoints.
+Os algoritmos matriciais serão preenchidos pelos estudantes, usando listas e laços em Python. Soma e subtração exigem dimensões iguais; multiplicação exige compatibilidade interna. Determinantes estão limitados pela API a 2×2 e 3×3. A identidade recebe ordem quadrada; a nula aceita linhas e colunas. Mensagens, códigos e limite de dimensão 8 já estão implementados e testados. O contrato admite até 2.000 passos de 10.000 caracteres cada.
 
 Dijkstra utilizará busca manual do menor nó não visitado (O(V²)), relaxamento e reconstrução via predecessores. Cada evento conterá cópias independentes das distâncias, visitados e predecessores, além de nó atual, aresta examinada e descrição da atualização. A API representará distância infinita por `null` acompanhado do estado apropriado, porque infinito não é JSON válido. Empates serão resolvidos pela ordem dos nós para uma demonstração determinística. Destino inalcançável e origem igual ao destino terão respostas explícitas.
 

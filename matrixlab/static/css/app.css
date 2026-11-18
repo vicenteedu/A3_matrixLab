@@ -15,7 +15,7 @@
 body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); line-height: 1.6; }
 h1, h2, p { margin: 0; }
 a { color: inherit; text-decoration: none; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 button { cursor: pointer; }
 svg { display: block; }
@@ -182,3 +182,51 @@ summary:hover { color: #c8bdf4; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Operações: o formulário só coleta dados; os resultados vêm do Python. */
+.operation-toolbar { display: flex; align-items: center; gap: 26px; margin-bottom: 22px; }
+.operation-toolbar label { display: grid; gap: 7px; color: #b7b7c4; font-size: 11px; }
+select { padding: 11px 38px 11px 13px; border: 1px solid #41424c; border-radius: 8px; background: #202127; color: var(--text); min-width: 240px; }
+.operation-toolbar p { color: var(--muted); font-size: 12px; max-width: 340px; }
+.matrix-editors { display: grid; gap: 18px; }
+.matrix-editors.binary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.binary .editor-toolbar { padding: 20px; flex-wrap: wrap; gap: 13px; }
+.binary .matrix-stage { min-height: 290px; padding-inline: 15px; }
+.binary .editor-footer { padding-inline: 20px; }
+.binary .feedback { font-size: 10px; max-width: 220px; }
+.generator-settings { display: flex; align-items: center; gap: 24px; padding: 28px; }
+.generator-settings label { display: grid; gap: 8px; color: #b7b7c4; font-size: 12px; }
+.generator-settings input { width: 85px; }
+.generator-settings p { color: var(--muted); font-size: 12px; }
+.calculate-bar { display: flex; align-items: center; justify-content: space-between; margin: 10px 0 22px; }
+.calculate-bar > span { color: #c8bddf; font: 17px Consolas, monospace; }
+.calculate-bar .button { min-width: 140px; }
+.button:disabled { cursor: wait; opacity: .65; transform: none; }
+.result-panel { padding: 25px; }
+.result-panel .panel-heading { margin-bottom: 14px; }
+#result-message { color: var(--muted); font-size: 12px; }
+.result-panel.has-error { border-color: #83505d; }
+.result-panel.has-error #result-message { color: #efb1bd; }
+.result-values { overflow-x: auto; }
+.result-values:empty { display: none; }
+.result-values table { border-spacing: 8px; margin: 20px auto; font: 16px Consolas, monospace; text-align: center; }
+.result-values td { padding: 12px 17px; border-radius: 6px; background: #292537; color: #e5dcff; white-space: nowrap; }
+.scalar-result { display: block; padding: 20px 0; font-size: 36px; font-weight: 400; color: #d2c4ff; }
+#result-steps { border-top: 1px solid var(--border); margin-top: 12px; }
+#steps-list { margin: 0; padding: 0 0 10px 25px; color: #c3bdcf; font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+#steps-list li + li { margin-top: 8px; }
+@media (max-width: 800px) {
+  .matrix-editors.binary { grid-template-columns: minmax(0, 1fr); }
+  .operation-toolbar { align-items: flex-start; gap: 16px; }
+  .operation-toolbar p { padding-top: 24px; }
+}
+@media (max-width: 620px) {
+  .operation-toolbar { flex-direction: column; }
+  .operation-toolbar label, select { width: 100%; min-width: 0; }
+  .operation-toolbar p { padding: 0; }
+  .generator-settings { flex-wrap: wrap; gap: 16px; padding: 20px; }
+  .generator-settings p { width: 100%; }
+  .result-panel { padding: 20px; }
+  .result-values td { padding: 10px 12px; }
+}
+@media (max-width: 360px) { .binary .editor-toolbar { padding: 16px; } }

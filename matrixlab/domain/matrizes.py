@@ -1,0 +1,47 @@
+"""PREENCHAM ESTE ARQUIVO: a conexão com a tela já está pronta.
+
+As entradas já chegam validadas. Matrizes são listas de listas de números.
+Não usem input(), Flask, NumPy ou JavaScript aqui.
+
+Em cada função, substituam o `raise NotImplementedError` pelo algoritmo.
+Retornem: {"resultado": sua_matriz_ou_numero, "passos": ["Explicação", ...]}.
+`passos` é opcional; também é permitido retornar só a matriz ou o número.
+As explicações devem descrever os cálculos que vocês realmente executaram.
+
+Guia e exemplos de uso: docs/IMPLEMENTAR_MATRIZES.md.
+"""
+
+
+def somar(a, b):
+    """TODO: somar matrizes de mesmas dimensões. Retornar matriz desse tamanho."""
+    raise NotImplementedError("A soma ainda não foi implementada.")
+
+
+def subtrair(a, b):
+    """TODO: calcular A - B, com dimensões iguais. Retornar uma matriz."""
+    raise NotImplementedError("A subtração ainda não foi implementada.")
+
+
+def multiplicar(a, b):
+    """TODO: produto A(m×n) por B(n×p). Retornar matriz m×p."""
+    raise NotImplementedError("A multiplicação ainda não foi implementada.")
+
+
+def transpor(a):
+    """TODO: transposta de A(m×n). Retornar matriz n×m."""
+    raise NotImplementedError("A transposta ainda não foi implementada.")
+
+
+def determinante(a):
+    """TODO: determinante de matriz quadrada 2×2 ou 3×3. Retornar um número."""
+    raise NotImplementedError("O determinante ainda não foi implementado.")
+
+
+def identidade(ordem):
+    """TODO: criar identidade quadrada. `ordem` é inteiro de 1 a 8."""
+    raise NotImplementedError("A matriz identidade ainda não foi implementada.")
+
+
+def nula(linhas, colunas):
+    """TODO: criar matriz nula. Dimensões são inteiros de 1 a 8."""
+    raise NotImplementedError("A matriz nula ainda não foi implementada.")

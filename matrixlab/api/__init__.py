@@ -1,8 +1,10 @@
-"""Read-only JSON endpoints available in phase 1."""
+"""Endpoints JSON do laboratório."""
 from flask import Blueprint, jsonify
 from ..domain.examples import demo_graph
+from .matrices import calculate_matrix
 
 api = Blueprint("api", __name__)
+api.add_url_rule("/matrices/calculate", view_func=calculate_matrix, methods=["POST"])
 
 
 @api.get("/health")
