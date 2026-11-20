@@ -1,0 +1,454 @@
+
+/* =====================================
+   1. CONFIGURAÇÕES GERAIS
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+
+/* =====================================
+   2. CABEÇALHO
+===================================== */
+
+header {
+    background: #ffffff;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #172554;
+}
+
+.logo span {
+    color: #2563eb;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #475569;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #2563eb;
+}
+
+
+/* =====================================
+   3. APRESENTAÇÃO
+===================================== */
+
+.hero {
+    background: linear-gradient(120deg, #172554, #2563eb);
+    color: white;
+    padding: 90px 10%;
+}
+
+.hero-conteudo {
+    max-width: 750px;
+}
+
+.etiqueta {
+    color: #bfdbfe;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: 46px;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.hero p {
+    color: #dbeafe;
+    font-size: 16px;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+
+/* =====================================
+   4. BOTÕES
+===================================== */
+
+.botao {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.botao:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.hero .botao {
+    background: white;
+    color: #1d4ed8;
+}
+
+.hero .botao:hover {
+    background: #dbeafe;
+}
+
+
+/* =====================================
+   5. CONTEÚDO PRINCIPAL
+===================================== */
+
+main {
+    width: 85%;
+    max-width: 1150px;
+    margin: auto;
+}
+
+.calculadora {
+    padding: 75px 0;
+}
+
+.titulo-secao {
+    margin-bottom: 30px;
+}
+
+.titulo-secao span,
+.sobre > span {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.titulo-secao h2 {
+    color: #172554;
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.titulo-secao p {
+    color: #64748b;
+}
+
+
+/* =====================================
+   6. CARTÃO DA CALCULADORA
+===================================== */
+
+.card {
+    background: white;
+    padding: 35px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================
+   7. MATRIZES
+===================================== */
+
+.matrizes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.campo-matriz h3 {
+    color: #1d4ed8;
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.campo-matriz p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 18px;
+    resize: vertical;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-family: monospace;
+    font-size: 17px;
+    line-height: 1.8;
+    transition: 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.campo-matriz small {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+
+/* =====================================
+   8. BOTÃO DE CALCULAR
+===================================== */
+
+.calcular {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+/* =====================================
+   9. RESULTADO
+===================================== */
+
+.resultado {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.resultado h2 {
+    color: #1d4ed8;
+    margin-bottom: 10px;
+}
+
+.resultado p {
+    color: #475569;
+}
+
+.matriz-resultado {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-left: 4px solid #2563eb;
+    border-right: 4px solid #2563eb;
+    border-radius: 6px;
+}
+
+.linha-resultado {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 7px;
+}
+
+.linha-resultado span {
+    min-width: 25px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1d4ed8;
+}
+
+/* =====================================
+   9.1 RESOLUÇÃO PASSO A PASSO
+===================================== */
+
+.resolucao h2 {
+    font-size: 25px;
+    color: #1d4ed8;
+    margin-bottom: 14px;
+}
+
+.resolucao > p {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.passo-calculo {
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    border-left: 4px solid #2563eb;
+    border-radius: 9px;
+    padding: 20px 24px;
+    margin-top: 17px;
+    transition: 0.3s;
+}
+
+.passo-calculo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.08);
+}
+
+.passo-calculo h3 {
+    color: #1d4ed8;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+
+.passo-calculo p {
+    color: #475569;
+    font-family: monospace;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.passo-calculo strong {
+    color: #172554;
+    font-size: 17px;
+}
+
+
+
+/* =====================================
+   10. MENSAGEM DE ERRO
+===================================== */
+
+.erro {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.erro strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* =====================================
+   11. SOBRE O PROJETO
+===================================== */
+
+.sobre {
+    background: white;
+    padding: 40px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 75px;
+}
+
+.sobre h2 {
+    color: #172554;
+    font-size: 27px;
+    margin: 12px 0;
+}
+
+.sobre p {
+    color: #64748b;
+    margin-top: 12px;
+}
+
+
+/* =====================================
+   12. RODAPÉ
+===================================== */
+
+footer {
+    background: #172554;
+    color: white;
+    padding: 45px 10%;
+    text-align: center;
+}
+
+footer h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #bfdbfe;
+}
+
+footer small {
+    display: block;
+    color: #93c5fd;
+    margin-top: 15px;
+}
+
+
+/* =====================================
+   13. RESPONSIVIDADE
+===================================== */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 60px 8%;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    main {
+        width: 90%;
+    }
+
+    .matrizes {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .sobre {
+        padding: 25px;
+    }
+
+}
