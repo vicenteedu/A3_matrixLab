@@ -2,14 +2,16 @@ import {Playback} from './playback.js';
 const el = (tag, text, className) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (className) n.className = className; return n; };
 export function mountResolution(response) {
   const data = response.visualizacao;
-  if (!data || data.versao !== 1 || data.tipo !== 'somar' || !Array.isArray(data.etapas) || !data.etapas.length) return () => {};
+  if (!data || data.versao !== 1 || !['somar', 'subtrair', 'multiplicar'].includes(data.tipo) || !Array.isArray(data.etapas) || !data.etapas.length) return () => {};
+  const operation = {somar: ['adição', '+'], subtrair: ['subtração', '−'], multiplicar: ['multiplicação', '×']}[data.tipo];
+  const formula = `A ${operation[1]} B = C`;
   const panel = document.getElementById('matrix-result');
   const root = el('div', undefined, 'resolution');
   const switcher = el('div', undefined, 'resolution-switch');
   const resultButton = el('button', 'Resultado', 'button secondary');
   const visualButton = el('button', 'Visualizar resolução', 'button secondary');
   [resultButton, visualButton].forEach(b => { b.type = 'button'; b.setAttribute('aria-pressed', String(b === resultButton)); switcher.append(b); });
-  const view = el('section'); view.hidden = true; view.setAttribute('aria-label', 'Resolução visual da adição');
+  const view = el('section'); view.hidden = true; view.setAttribute('aria-label', `Resolução visual da ${operation[0]}`);
   const matrices = el('div', undefined, 'resolution-matrices');
   const cells = {};
   for (const [key, values] of [['A', data.a], ['B', data.b], ['C', response.resultado]]) {
@@ -19,7 +21,7 @@ export function mountResolution(response) {
     values.forEach((row, i) => { const tr = el('tr'); cells[key][i] = []; row.forEach((value, j) => { const td = el('td', key === 'C' ? '·' : String(value)); td.setAttribute('aria-label', `${key}, linha ${i+1}, coluna ${j+1}`); cells[key][i][j] = td; tr.append(td); }); body.append(tr); });
     table.append(body); wrap.append(table); figure.append(wrap); matrices.append(figure);
   }
-  const expression = el('p', 'A + B = C', 'resolution-expression');
+  const expression = el('p', formula, 'resolution-expression');
   const explanation = el('p', 'Avance ou pressione Reproduzir para acompanhar a primeira célula.'); explanation.setAttribute('role', 'status');
   const progress = el('progress'); progress.max = data.etapas.length; progress.value = 0; progress.setAttribute('aria-label', 'Progresso da resolução');
   const count = el('span'); const controls = el('div', undefined, 'resolution-controls');
@@ -32,14 +34,24 @@ export function mountResolution(response) {
   for (const value of [.5,1,1.5,2]) { const option = el('option', `${value}×`); option.value = value; option.selected = value === 1; speed.append(option); }
   speed.addEventListener('change',()=>player.setSpeed(Number(speed.value))); speedLabel.append(speed); controls.append(speedLabel);
   player = new Playback(data.etapas.length, (index, playing) => {
-    Object.values(cells).forEach(rows=>rows.flat().forEach(td=>td.classList.remove('resolution-active')));
+    Object.values(cells).forEach(rows=>rows.flat().forEach(td=>td.classList.remove('resolution-active', 'resolution-factor')));
     cells.C.flat().forEach(td=>td.textContent='·');
-    data.etapas.slice(0,index+1).forEach(step=>{cells.C[step.linha][step.coluna].textContent=String(step.valor);});
+    data.etapas.slice(0,index+1).filter(step => step.fase !== 'produto').forEach(step=>{cells.C[step.linha][step.coluna].textContent=String(step.valor);});
     const step = data.etapas[index];
-    if (step) { for (const key of ['A','B','C']) cells[key][step.linha][step.coluna].classList.add('resolution-active'); }
-    expression.textContent = step ? step.expressao : 'A + B = C';
+    if (step) {
+      if (data.tipo === 'multiplicar') {
+        cells.A[step.linha].forEach(td => td.classList.add('resolution-active'));
+        cells.B.forEach(row => row[step.coluna].classList.add('resolution-active'));
+        if (step.fase === 'produto') {
+          cells.A[step.linha][step.indice].classList.add('resolution-factor');
+          cells.B[step.indice][step.coluna].classList.add('resolution-factor');
+        }
+        cells.C[step.linha][step.coluna].classList.add('resolution-active');
+      } else for (const key of ['A','B','C']) cells[key][step.linha][step.coluna].classList.add('resolution-active');
+    }
+    expression.textContent = step ? step.expressao : formula;
     explanation.textContent = step ? step.explicacao : 'Avance ou pressione Reproduzir para acompanhar a primeira célula.';
-    progress.value = index+1; count.textContent = `${index+1} de ${data.etapas.length} células`;
+    progress.value = index+1; count.textContent = `${index+1} de ${data.etapas.length} etapas`;
     buttons.play.textContent = playing ? 'Pausar' : 'Reproduzir'; buttons.previous.disabled = index < 0; buttons.next.disabled = index === data.etapas.length-1;
   });
   const result = document.getElementById('result-values'); const steps = document.getElementById('result-steps'); const hadSteps = !steps.hidden;

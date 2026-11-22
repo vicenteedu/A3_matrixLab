@@ -124,14 +124,20 @@ def multiplicar(a, b):
         for j in range(colunas_b):
             soma = 0
             produtos = []
+            detalhes = []
             for k in range(colunas_a):
                 prod = a[i][k] * b[k][j]
                 soma += prod
+                detalhes.append({"linha": i, "coluna": j, "indice": k, "fase": "produto",
+                                 "expressao": f"({a[i][k]}) × ({b[k][j]}) = {prod}",
+                                 "explicacao": f"Multiplique A[{i+1}, {k+1}] por B[{k+1}, {j+1}]. Soma parcial: {soma}."})
                 produtos.append(f"{a[i][k]}x{b[k][j]}")
             passos.append(f"C[{i}][{j}] = " + " + ".join(produtos) + f" = {soma}")
 
+            etapas.extend(detalhes)
             etapas.append(
                 {
+                    "fase": "resultado",
                     "linha": i,
                     "coluna": j,
                     "a_linha": a[i],
