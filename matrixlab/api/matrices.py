@@ -1,7 +1,6 @@
 """Transporte HTTP; sem implementações matemáticas."""
 from flask import current_app, jsonify, request
 from werkzeug.exceptions import BadRequest, RequestEntityTooLarge
-from ..domain.matrizes import DeterminanteForaDaFaixa
 from ..domain.matrix_service import InvalidInput, InvalidResult, calculate
 
 
@@ -19,8 +18,6 @@ def calculate_matrix():
         return jsonify(codigo="entrada_invalida", erro=str(error)), 400
     except NotImplementedError as error:
         return jsonify(codigo="nao_implementado", erro=str(error) or "Esta operação ainda não foi implementada."), 501
-    except DeterminanteForaDaFaixa:
-        return jsonify(codigo="determinante_fora_da_faixa", erro="O determinante está fora da faixa numérica que o site consegue exibir."), 422
     except InvalidResult as error:
         return jsonify(codigo="resultado_invalido", erro=f"A função retornou um resultado inválido. {error}"), 500
     except Exception:
