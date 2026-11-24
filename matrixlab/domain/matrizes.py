@@ -10,7 +10,7 @@ As explicações devem descrever os cálculos que vocês realmente executaram.
 
 Guia e exemplos de uso: docs/IMPLEMENTAR_MATRIZES.md.
 """
-
+ 
 
 
 def somar(a, b):
@@ -209,6 +209,7 @@ def determinante(a):
     if linhas != colunas:
         raise ValueError("O determinante exige uma matriz quadrada.")
 
+    #matriz 1x1
     if linhas == 1:
         determinante_1x1 = a[0][0]
         return {
@@ -216,7 +217,7 @@ def determinante(a):
             "passos": [f"Determinante de 1x1 é o próprio elemento: {determinante_1x1}"],
         }
         
-
+    #matriz 2x2
     elif linhas == 2:
        determinante_2x2 = a[0][0] * a[1][1] - a[0][1] * a[1][0]
        return {
@@ -225,6 +226,8 @@ def determinante(a):
                 f"Determinante de 2x2: a*d - b*c = {a[0][0]}*{a[1][1]} - {a[0][1]}*{a[1][0]} = {determinante_2x2}"
             ],
         }
+    
+    #matriz 3x3
     elif linhas == 3:
         passos =[]
         etapas = []
@@ -248,7 +251,8 @@ def determinante(a):
             "resultado": determinante_3x3,
             "passos": passos,
         }
-        
+    
+    #fiz pq nao sabia que nao precisava :) 
     else:
         matriz = [linha[:] for linha in a]
 

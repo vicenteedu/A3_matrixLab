@@ -1,6 +1,7 @@
 """Validação e encaminhamento. Os algoritmos pertencem apenas a matrizes.py."""
 from math import isfinite
 from . import matrizes
+from .determinant_visualization import visualizar_determinante
 
 MAX_SIZE = 8
 OPERATIONS = {"somar", "subtrair", "multiplicar", "transpor", "determinante", "identidade", "nula"}
@@ -102,4 +103,9 @@ def calculate(data):
     operation, arguments, expected_shape = prepare(data)
     # Ponto de ligação: chama a função de mesmo nome no arquivo de vocês.
     raw = getattr(matrizes, operation)(*arguments)
-    return {"operacao": operation, **normalize_result(raw, expected_shape)}
+    normalized = normalize_result(raw, expected_shape)
+    if operation == "determinante" and "visualizacao" not in normalized:
+        visualization = visualizar_determinante(arguments[0], normalized["resultado"])
+        if visualization is not None:
+            normalized["visualizacao"] = visualization
+    return {"operacao": operation, **normalized}

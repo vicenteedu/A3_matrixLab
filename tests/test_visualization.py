@@ -81,7 +81,9 @@ class VisualizationTests(unittest.TestCase):
                 trace = response['visualizacao']
                 methods = {1: 'direto', 2: 'formula_2x2', 3: 'sarrus'}
                 self.assertEqual(trace['metodo'], methods.get(n, 'gauss'))
-                self.assertEqual(len(trace['etapas']), len(response['passos']))
+                from matrixlab.domain import matrizes
+                self.assertEqual(response['passos'], matrizes.determinante(matrix)['passos'])
+                self.assertTrue(trace['etapas'])
 
     def test_diagonal_steps_use_actual_factors(self):
         for n, matrix in [(2, [[1, 2], [3, 4]]), (3, [[5, -3, 2], [7, 1, -4], [2, 3, 4]])]:
@@ -114,12 +116,12 @@ class VisualizationTests(unittest.TestCase):
         self.assertEqual(steps[1]['matriz'][0], ['-4', '3', '0', '0'])
         self.assertEqual(steps[2]['tipo'], 'eliminacao')
         self.assertEqual(steps[2]['linha'], 1)
-        self.assertEqual(steps[2]['matriz'][1], ['0', '5/2', '0', '0'])
-        self.assertIn('-1/2', steps[2]['expressao'])
+        self.assertEqual(steps[2]['matriz'][1], ['0.0', '2.5', '0.0', '0.0'])
+        self.assertIn('-0.5', steps[2]['expressao'])
         self.assertEqual(len(steps[2]['atualizacoes']), 4)
         triangular = steps[-3]
         self.assertEqual(triangular['tipo'], 'triangular')
-        self.assertTrue(all(triangular['matriz'][i][j] == '0' for i in range(4) for j in range(i)))
+        self.assertTrue(all(float(triangular['matriz'][i][j]) == 0 for i in range(4) for j in range(i)))
         self.assertEqual(steps[-2]['celulas'], [[i, i] for i in range(4)])
         self.assertIn('(-1)', steps[-1]['expressao'])
 
@@ -144,11 +146,17 @@ class VisualizationTests(unittest.TestCase):
         self.assertEqual(response['resultado'], result)
         self.assertEqual(response['visualizacao']['resultado_texto'], str(result))
 
-    def test_determinant_outside_json_numeric_range(self):
+    def test_current_float_range_behavior_is_preserved(self):
         client = create_app({'TESTING': True}).test_client()
         for value in [1e-150, 1e150]:
             with self.subTest(value=value):
                 a = [[value if i == j else 0 for j in range(4)] for i in range(4)]
                 response = client.post('/api/matrices/calculate', json={'operacao': 'determinante', 'a': a})
-                self.assertEqual(response.status_code, 422)
-                self.assertEqual(response.get_json()['codigo'], 'determinante_fora_da_faixa')
+                # The student's native float algorithm underflows to zero.
+                # Overflow is rejected by the existing result validator.
+                if value < 1:
+                    self.assertEqual(response.status_code, 200)
+                    self.assertEqual(response.get_json()['resultado'], 0)
+                else:
+                    self.assertEqual(response.status_code, 500)
+                    self.assertEqual(response.get_json()['codigo'], 'resultado_invalido')

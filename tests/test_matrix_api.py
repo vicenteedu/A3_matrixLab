@@ -36,7 +36,8 @@ class MatrixApiTests(unittest.TestCase):
             with self.subTest(operation=operation), patch(f"matrixlab.domain.matrizes.{operation}", return_value=output):
                 response = self.post({"operacao": operation, "a": [[1, 2], [3, 4]]})
                 self.assertEqual(response.status_code, 200)
-                self.assertEqual(response.json, {"operacao": operation, "resultado": output, "passos": []})
+                self.assertEqual({key: response.json[key] for key in ("operacao", "resultado", "passos")},
+                                 {"operacao": operation, "resultado": output, "passos": []})
 
     def test_pending_operation_is_not_fake_success(self):
         with patch("matrixlab.domain.matrizes.somar", side_effect=NotImplementedError("Soma pendente.")):
