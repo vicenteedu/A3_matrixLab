@@ -357,3 +357,41 @@ summary { font-size: 16px; }
 @media(max-width:700px) { .resolution-matrices { grid-template-columns:minmax(0,1fr); } }
 @media(prefers-reduced-motion:reduce) { .resolution-matrices td { transition:none; } }
 .resolution-matrices td.resolution-factor { border-color:var(--success); background:#174738; color:#fff; }
+.resolution-view { position: relative; }
+.scalar-result { overflow-wrap: anywhere; }
+.resolution-unary figcaption { text-align: center; }
+.resolution-unary table { margin-inline: auto; }
+.resolution-matrices.resolution-unary {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+}
+.resolution-matrices.resolution-determinant { grid-template-columns: minmax(0, 1fr); }
+.resolution-scroll:focus-visible { outline-offset: -3px; }
+.resolution-arrow { align-self: center; color: var(--accent); font-size: 26px; }
+.resolution-matrices td { white-space: nowrap; }
+.resolution-matrices td.resolution-copy { border-style: dashed; border-color: #545179; }
+.resolution-matrices td.resolution-candidate { border-color: #6b5a91; background: #302746; }
+.resolution-matrices td.resolution-pivot { border-color: #89b9ff; background: #243e64; color: #fff; }
+.resolution-transfer {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+  border: 2px solid #9dcbff;
+  border-radius: 7px;
+  background: #294d75;
+  color: #fff;
+  font: 16px Consolas, monospace;
+}
+.resolution-controls .button, .resolution-controls select { min-height: 44px; }
+.resolution-controls select { width: auto; }
+.resolution-updates { padding-inline-start: 24px; color: var(--muted); font: 14px/1.65 Consolas, monospace; overflow-wrap: anywhere; }
+.resolution-status { min-height: 95px; }
+@media (max-width: 700px) {
+  .resolution-matrices.resolution-unary { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .resolution-arrow { justify-self: center; transform: rotate(90deg); }
+  .resolution-matrices td { min-width: 36px; height: 36px; padding: 4px 6px; }
+  .resolution-matrices table { font-size: 14px; border-spacing: 4px; }
+  .resolution-expression { font-size: 18px; }
+}

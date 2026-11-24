@@ -9,7 +9,7 @@ const operations = {
   subtrair: {binary: true, label: 'A − B', hint: 'A e B precisam ter as mesmas dimensões.'},
   multiplicar: {binary: true, label: 'A × B', hint: 'O número de colunas de A deve ser igual ao de linhas de B.'},
   transpor: {label: 'Aᵀ', hint: 'As linhas se tornam colunas.'},
-  determinante: {label: 'det(A)', hint: 'Use uma matriz quadrada 2 × 2 ou 3 × 3.'},
+  determinante: {label: 'det(A)', hint: 'Use uma matriz quadrada de ordem 1 a 8.'},
   identidade: {generator: true, label: 'Identidade', hint: 'Uma matriz quadrada com 1 na diagonal e 0 nas demais posições.'},
   nula: {generator: true, label: 'Matriz nula', hint: 'Uma matriz com todas as posições iguais a zero.'}
 };
@@ -162,7 +162,7 @@ function showResult(response) {
     result.forEach(row => { const tr = body.insertRow(); row.forEach(number => { tr.insertCell().textContent = String(number); }); });
     element('result-values').append(table);
   } else {
-    const value = document.createElement('strong'); value.className = 'scalar-result'; value.textContent = String(result);
+    const value = document.createElement('strong'); value.className = 'scalar-result'; value.textContent = response.visualizacao?.resultado_texto ?? String(result);
     element('result-values').append(value);
   }
   response.passos.forEach(step => { const li = document.createElement('li'); li.textContent = step; element('steps-list').append(li); });

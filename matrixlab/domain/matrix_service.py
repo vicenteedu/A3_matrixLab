@@ -58,8 +58,8 @@ def prepare(data):
     a = data.get("a")
     rows_a, columns_a = matrix_shape(a, "A matriz A")
     if operation == "determinante":
-        if rows_a != columns_a or rows_a not in (2, 3):
-            raise InvalidInput("O determinante aceita somente matrizes 2 × 2 ou 3 × 3.")
+        if rows_a != columns_a:
+            raise InvalidInput("O determinante exige uma matriz quadrada de ordem 1 a 8.")
         return operation, [a], None
     if operation == "transpor":
         return operation, [a], (columns_a, rows_a)

@@ -59,9 +59,8 @@ class MatrixApiTests(unittest.TestCase):
             {"operacao": "somar", "a": [[1]], "b": [[1, 2]]},
             {"operacao": "subtrair", "a": [[1]], "b": [[1], [2]]},
             {"operacao": "multiplicar", "a": [[1, 2]], "b": [[1, 2]]},
-            {"operacao": "determinante", "a": [[1]]},
             {"operacao": "determinante", "a": [[1, 2]]},
-            {"operacao": "determinante", "a": [[0] * 4 for _ in range(4)]},
+            {"operacao": "determinante", "a": [[0] * 9 for _ in range(9)]},
         ]
         for payload in cases:
             with self.subTest(payload=payload), patch(f"matrixlab.domain.matrizes.{payload['operacao']}") as function:

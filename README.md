@@ -40,7 +40,7 @@ A versão 0.1.1 abre diretamente no editor de matrizes. São apenas três abas �
 
 - **Interface responsiva:** tema escuro, três abas no topo, animações suaves, estados de foco e navegação por teclado.
 - **Editores A e B:** matrizes de 1×1 a 8×8, dimensões independentes, valores editáveis e restauração dos exemplos. B aparece apenas nas operações que precisam dela.
-- **Operações conectadas:** adição, subtração, multiplicação, transposta, determinante, identidade e nula encaminham os dados às respectivas funções Python, ainda pendentes de resolução.
+- **Operações implementadas:** adição, subtração, multiplicação, transposta e determinante de ordem 1 a 8. Identidade e matriz nula estão pendentes.
 - **Resultado e passos:** apresentação de matriz ou número, resolução opcional, carregamento, mensagens de erro e cancelamento de respostas antigas após uma edição.
 - **Rascunho local:** A, B e a operação são salvas no navegador. O rascunho antigo da matriz A é preservado na migração.
 - **Grafo de demonstração:** explore quatro nós e cinco arestas em SVG; selecione um nó para consultar suas conexões.
@@ -56,6 +56,8 @@ Os recursos da aplicação são locais: sem CDN, fontes remotas ou serviços ext
 <br>
 <img src="docs/images/mobile.png" width="320" alt="MatrixLab em tela de celular, com os módulos organizados verticalmente">
 </details>
+
+Para reproduzir um cálculo, selecione a operação, clique em **Calcular** e abra **Visualizar resolução**. A transposta mostra a transferência de cada célula. O determinante mostra o método usado conforme a ordem da matriz. Os controles permitem acompanhar, pausar ou rever cada etapa produzida pelo Python.
 
 ## Executar localmente
 
@@ -150,7 +152,7 @@ Execute os testes a partir da raiz do repositório:
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-São **31 testes: 21 aprovados e 10 pulados enquanto os algoritmos estão pendentes**. Nove verificam a base e o grafo; doze verificam a API matricial, validações, encaminhamento e tratamento de retornos; dez são casos de aceitação das resoluções. Estes últimos deixam de ser pulados quando a função correspondente é implementada.
+Os testes Python cobrem a aplicação, a API, as operações matriciais e os dados das visualizações. Os testes de identidade e matriz nula ficam pulados enquanto essas funções estiverem pendentes.
 
 A interface também foi verificada em Chrome com automação de navegador: navegação, persistência, validações do editor, teclado, recuperação de falha da API e cinco larguras de tela. Consulte o [registro de validação](docs/VALIDATION.md) para os cenários e limites dessa verificação.
 
@@ -200,7 +202,7 @@ No contrato JSON do grafo, `null` representa ausência de aresta e `0` é reserv
 ## Próximas fases
 
 - [x] **Fase 1 — Fundação:** Flask, layout, design system, editor inicial, grafo de referência e testes da base.
-- [ ] **Fase 2 — Matrizes:** adição, subtração, multiplicação, transposta, determinantes 2×2/3×3, identidade, matriz nula e resolução passo a passo em Python.
+- [ ] **Fase 2 — Matrizes:** adição, subtração, multiplicação, transposta, determinantes de ordem 1 a 8, identidade, matriz nula e resolução passo a passo em Python.
 - [ ] **Fase 3 — Dijkstra:** validação do modelo, algoritmo manual, predecessores, histórico de execução e tratamento de destinos inalcançáveis.
 - [ ] **Fase 4 — Editor de grafos:** criação e remoção de nós/arestas, arraste, edição de pesos, sincronização bidirecional e importação/exportação JSON.
 - [ ] **Fase 5 — Aprendizagem e refinamento:** reprodução das etapas, propriedades com exemplos verificados, conteúdo educativo ampliado e testes integrados.

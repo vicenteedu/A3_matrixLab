@@ -8,7 +8,7 @@
 - `subtrair(a, b)`: recebe duas matrizes de mesma dimensão; devolve A − B.
 - `multiplicar(a, b)`: recebe A de tamanho m×n e B de tamanho n×p; devolve uma matriz m×p.
 - `transpor(a)`: recebe uma matriz m×n; devolve uma matriz n×m.
-- `determinante(a)`: recebe uma matriz 2×2 ou 3×3; devolve **um número**, não uma matriz.
+- `determinante(a)`: recebe uma matriz quadrada de ordem 1 a 8; devolve **um número**, não uma matriz.
 - `identidade(ordem)`: recebe um inteiro de 1 a 8; devolve uma matriz quadrada dessa ordem.
 - `nula(linhas, colunas)`: recebe dois inteiros de 1 a 8; devolve uma matriz com essas dimensões.
 
@@ -90,7 +90,7 @@ No macOS/Linux, substituam o executável por `.venv/bin/python`.
 - `tests/test_matrix_api.py`: testa a infraestrutura e simula retornos para verificar transporte e apresentação do contrato. Esses testes não provam que os algoritmos de vocês estão corretos.
 - `tests/test_app.py`: mantém os nove testes da base e do grafo de exemplo.
 
-Na entrega da estrutura, são **21 testes aprovados e 10 pulados** por falta dos algoritmos. Os pulados não contam como cálculos aprovados.
+Os casos de identidade e matriz nula ficam pulados até que essas funções sejam implementadas. Os testes de transposta e determinante também verificam as etapas enviadas pelo backend.
 
 ## Como os arquivos se conectam
 
