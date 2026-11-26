@@ -300,11 +300,63 @@ def determinante(a):
             "resultado": determinante_final,
             "passos": ["Determinante calculado usando eliminação de Gauss."],
         }
+
 def identidade(ordem):
-    """TODO: criar identidade quadrada. `ordem` é inteiro de 1 a 8."""
-    raise NotImplementedError("A matriz identidade ainda não foi implementada.")
+    """Criar uma matriz identidade quadrada."""
+
+    resultado = []
+    passos = []
+
+    for i in range(ordem):
+        linha = []
+
+        for j in range(ordem):
+            if i == j:
+                linha.append(1)
+            else:
+                linha.append(0)
+
+        resultado.append(linha)
+
+    passos.append(
+        f"Matriz identidade de ordem {ordem} criada."
+    )
+    passos.append(
+        "A diagonal principal recebeu 1 e os demais elementos receberam 0."
+    )
+
+    return {
+        "resultado": resultado,
+        "passos": passos
+    }
+
+
 
 
 def nula(linhas, colunas):
-    """TODO: criar matriz nula. Dimensões são inteiros de 1 a 8."""
-    raise NotImplementedError("A matriz nula ainda não foi implementada.")
+    """Criar uma matriz preenchida com zeros."""
+
+    resultado = []
+    passos = []
+
+    for i in range(linhas):
+        linha = []
+
+        for j in range(colunas):
+            linha.append(0)
+
+        resultado.append(linha)
+
+    passos.append(
+        f"Matriz nula de dimensão {linhas}x{colunas} criada."
+    )
+    passos.append(
+        "Todos os elementos da matriz receberam o valor zero."
+    )
+    
+
+    return {
+        "resultado": resultado,
+        "passos": passos
+    }
+
